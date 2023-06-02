@@ -1,0 +1,237 @@
+---
+name: 'preset_analytics'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'default'
+
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_modules"
+
+vars:
+  super_full_refresh_use_with_care: false
+  start_date: |
+    {%- if  target.name == "dev" -%}
+      DATE_ADD('{{ run_started_at.strftime("%Y-%m-%d") }}', INTERVAL -7 DAY)
+    {%- elif target.name == "prod"  -%}
+      DATE('2021-02-06')
+    {%- else -%}
+      DATE('2021-02-06')
+    {%- endif -%}
+  pre_beta_start_date: DATE('2021-02-06')
+  beta_start_date: DATE('2021-08-18')
+  end_dt: DATE('{{ run_started_at.strftime("%Y-%m-%d") }}')
+
+  day_counts: [7, 14, 28, 90]
+
+  github_repos:
+    - repo: apache/superset
+      table_str: apache_superset
+    - repo: preset-io/superset
+      table_str: presetio_superset
+
+  segment:
+    segment_page_views_table: "{{ ref( 'wrk_segment_unified_page_views' ) }}"
+    segment_sessionization_trailing_window: 3
+    segment_inactivity_cutoff: 30 * 60
+    segment_pass_through_columns: [context_ip, context_locale,
+                                   context_user_agent, first_ab_test,
+                                   fingerprint, team_id, event, event_text]
+
+  github_source:
+    github_database: preset-cloud-analytics
+    github_schema: github
+
+  hubspot_source:
+    hubspot_database: preset-cloud-analytics
+    hubspot_schema: fivetran_hubspot
+  hubspot_email_event_forward_enabled: false
+  hubspot_email_event_print_enabled: false
+  hubspot__pass_through_all_columns: true
+
+  pendo_database: preset-cloud-analytics
+  pendo_schema: pendo
+
+models:
+  +on_schema_change: "sync_all_columns"
+
+# internal models
+
+  preset_analytics:
+    backroom:
+      +tags: type:backroom
+      staging:
+        hubspot:
+        preset_metadata:
+          +schema: preset_metadata
+          +tags:
+            - schema:preset_metadata
+            - type:wrk
+        recurly:
+          +schema: recurly
+          +tags:
+            - schema:recurly
+            - type:backroom
+        shortcut:
+          +schema: shortcut
+          +tags:
+            - schema:shortcut
+            - type:backroom
+        superset_events:
+          +schema: superset_events
+          +tags:
+            - schema:superset_events
+            - type:backroom
+      wrk:
+        +schema: wrk
+        +tags:
+          - schema:wrk
+          - type:wrk
+        action_actor_accounting:
+        core:
+        core_history:
+          +schema: history
+          +tags:
+            - schema:history
+            - type:wrk
+        egaf:
+          +schema: wrk
+          +tags:
+            - type:egaf
+        enrichment:
+          +schema: wrk
+          +tags:
+            - type:enrichment
+          ip_address_w_geo_stage:
+            +enabled: false # disabling this model for the time being
+        hubspot:
+        pendo:
+        segment:
+        user_persona_attributes:
+    frontroom:
+      +tags: type:frontroom
+      core:
+        +tags:
+          - schema:core
+      preset_metadata:
+        +schema: preset_metadata
+        +tags:
+          - schema:preset_metadata
+      hubspot:
+        +schema: hubspot
+        +tags:
+          - schema:hubspot
+      hubspot_fivetran:
+        +schema: hubspot_fivetran
+        +tags:
+          - schema:hubspot_fivetran
+      growth:
+        +schema: growth
+        +tags:
+          - schema:growth
+      community_tracker:
+        +schema: community_tracker
+        +tags:
+          - schema:community_tracker
+          - type:wrk
+      github_apache_superset:
+        +schema: github
+        +tags:
+          - schema:github
+          - type:frontroom
+      github_preset:
+        +schema: github_preset
+        +tags:
+          - type:frontroom
+      reverse_etl:
+        +schema: reverse_etl
+        +materialized: table
+        +tags:
+          - schema:reverse_etl
+          - type:reverse_etl
+      pendo:
+        +schema: pendo
+        +tags:
+          - schema:pendo
+          - type:frontroom
+      recurly:
+        +schema: recurly
+        +tags:
+          - schema:recurly
+          - type:frontroom
+      analysis:
+        +schema: analysis
+        +tags:
+          - schema:analysis
+          - type:frontroom
+      superset_events:
+        +schema: superset_events
+      shortcut:
+        +schema: shortcut
+        +tags:
+          - schema:shortcut
+          - type:wrk
+
+# external models
+
+      external:
+        +schema: external
+        +tags:
+          - schema:external
+          - type:external
+
+# managed packages
+
+  segment:
+    +schema: segment_managed_package
+    +tags:
+      - type:analytics
+      - type:managed_package
+      - schema:segment_managed_package
+
+  github_source:
+    +schema: github_preset
+    +tags:
+      - type:managed_package
+      - schema:github_preset
+
+  github:
+    +schema: github_preset
+    +tags:
+      - type:managed_package
+      - schema:github_preset
+
+  hubspot_source:
+    +schema: hubspot_managed_package
+    +tags:
+      - type:managed_package
+      - schema:hubspot_managed_package
+
+  hubspot:
+    +schema: hubspot_managed_package
+    +tags:
+      - type:managed_package
+      - schema:hubspot_managed_package
+
+# seeds
+
+seeds:
+  preset_analytics:
+    +schema: seeds
+
+  segment:
+    +schema: segment_managed_package
+    +tags:
+      - type:analytics
+      - type:managed_package
+      - schema:segment_managed_package

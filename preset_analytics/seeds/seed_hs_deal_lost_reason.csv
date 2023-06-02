@@ -1,0 +1,11 @@
+deal_lost_reason_id,deal_lost_reason
+1,No Response (SPAM/Bad email)
+2,No Response ( no open email)
+10,Unsubscribe from Email
+3,No Response ( ignore us)
+4,Just Curious
+5,Trying Superset
+6,Price - Per seat
+7,No Value
+8,Missing Features
+9,No Right Time

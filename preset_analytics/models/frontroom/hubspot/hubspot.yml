@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: hs_companies
+    columns:
+      - name: hs_company_id
+        tests:
+          - unique
+          - not_null

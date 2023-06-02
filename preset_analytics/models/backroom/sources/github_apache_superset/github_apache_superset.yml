@@ -1,0 +1,17 @@
+---
+version: 2
+
+sources:
+  - name: github
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:github
+
+    freshness:
+      warn_after: {count: 14, period: day}
+      error_after: {count: 21, period: day}
+    loaded_at_field: dttm
+
+    tables:
+      - name: actions_sync

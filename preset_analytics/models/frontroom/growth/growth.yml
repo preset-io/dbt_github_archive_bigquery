@@ -1,0 +1,14 @@
+---
+version: 2
+
+models:
+  - name: growth_team_metrics
+    description: >
+      This table reports metrics on Preset's growth
+      over time.
+
+    columns:
+      - name: dt
+        tests:
+          - unique
+          - not_null

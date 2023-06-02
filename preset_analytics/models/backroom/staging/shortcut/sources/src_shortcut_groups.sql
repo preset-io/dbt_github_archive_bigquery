@@ -1,0 +1,18 @@
+SELECT
+  id,
+  app_url,
+  name,
+  mention_name,
+  description,
+  entity_type,
+  {{ array_from_string('member_ids') }} AS member_ids,
+  {{ array_from_string('workflow_ids') }} AS workflow_ids,
+  display_icon,
+  color,
+  color_key,
+  num_stories,
+  num_stories_started,
+  num_epics_started,
+  archived AS is_archived,
+  loaded_at,
+FROM {{ source('shortcut', 'groups') }}

@@ -1,0 +1,79 @@
+---
+version: 2
+
+sources:
+  - name: superset_events_production
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:superset_events_production
+
+    freshness:
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+      filter: DATE_DIFF(CAST(dttm AS DATETIME), CURRENT_DATE, DAY) < 8
+    loaded_at_field: CAST(dttm AS DATETIME)
+
+    tables:
+      - name: superset_events
+
+  - name: manager_events_production
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:manager_events_production
+
+    freshness:
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+      filter: DATE_DIFF(CAST(timestamp AS DATE), CURRENT_DATE, DAY) < 8
+    loaded_at_field: CAST(timestamp AS DATETIME)
+
+    tables:
+      - name: manager_events
+      - name: tracks
+      - name: aliases
+      - name: pages
+      - name: identifies
+      - name: complete_registration_starter
+      - name: complete_registration_professional
+      - name: email_password_sign_up_from_invite_accept_page
+      - name: google_sign_up_from_invite_accept_page
+
+  - name: production_gatsby_marketing_website
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:production_gatsby_marketing_website
+
+    freshness:
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+      filter: DATE_DIFF(CAST(timestamp AS DATE), CURRENT_DATE, DAY) < 8
+    loaded_at_field: CAST(timestamp AS DATETIME)
+
+    tables:
+      - name: pages
+      - name: aliases
+        freshness: # do not check freshness for this table
+
+  - name: preset_app_client_side_prod
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:preset_app_client_side_prod
+
+    freshness:
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+      filter: DATE_DIFF(CAST(timestamp AS DATE), CURRENT_DATE, DAY) < 8
+    loaded_at_field: CAST(timestamp AS DATETIME)
+
+    tables:
+      - name: tracks
+      - name: pages
+      - name: identifies
+      - name: complete_registration_starter
+      - name: complete_registration_professional
+      - name: email_password_sign_up_from_invite_accept_page
+      - name: google_sign_up_from_invite_accept_page

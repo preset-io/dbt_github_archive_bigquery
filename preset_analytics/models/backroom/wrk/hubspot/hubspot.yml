@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: wrk_feature_request_join
+    description: >
+      A work table that joins features requests to companies and deals,
+      resolving the generic `hs_object_id` to the more descriptive
+      company_id and deal_id

@@ -1,0 +1,91 @@
+version: 2
+
+sources:
+  - name: fivetran_hubspot
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:fivetran_hubspot
+
+    loader: fivetran
+
+    freshness:
+      warn_after: {count: 72, period: hour}
+      error_after: {count: 168, period: hour}
+    loaded_at_field: _fivetran_synced
+
+    tables:
+      - name: calendar_event
+      - name: company
+      - name: company_property_history # has timestamp casting issues
+      - name: contact
+      - name: contact_form_submission
+      - name: contact_identity_profile
+      - name: contact_list
+      - name: contact_list_member
+      - name: contact_merge_audit
+      - name: contact_property_history # has timestamp casting issues
+      - name: deal
+      - name: deal_company
+      - name: deal_contact
+      - name: deal_pipeline
+      - name: deal_pipeline_stage
+      - name: deal_property_history # has timestamp casting issues
+      - name: deal_stage
+      - name: email_campaign
+      - name: email_event
+      - name: email_event_bounce
+      - name: email_event_click
+      - name: email_event_deferred
+      - name: email_event_delivered
+      - name: email_event_dropped
+      - name: email_event_open
+      - name: email_event_sent
+      - name: email_event_spam_report
+        freshness: # do not check freshness for this table
+      - name: email_event_status_change
+      - name: email_event_suppressed
+      - name: email_subscription
+      - name: email_subscription_change
+      - name: engagement
+      - name: engagement_call
+      - name: engagement_company
+      - name: engagement_contact
+      - name: engagement_deal
+      - name: engagement_email
+      - name: engagement_email_cc
+      - name: engagement_email_to
+      - name: engagement_meeting
+      - name: engagement_note
+      - name: engagement_publishing_task
+      - name: engagement_task
+      - name: fivetran_audit
+      - name: form
+      - name: identity_profile_identity
+      - name: line_item
+      - name: line_item_property_history # has timestamp casting issues
+      - name: marketing_email
+      - name: marketing_email_campaign
+      - name: marketing_email_contact
+      - name: marketing_email_contact_list
+      - name: owner
+      - name: product
+      - name: product_property_history # has timestamp casting issues
+      - name: property
+      - name: property_option
+      - name: team_id
+      - name: team_to_company
+      - name: feature_requests
+      - name: feature_requests_to_company
+      - name: feature_requests_to_deal
+      - name: team_to_contact
+      - name: team_to_deal
+      - name: ticket
+      - name: ticket_company
+      - name: ticket_contact
+      - name: ticket_deal
+        freshness: # do not check freshness for this table
+      - name: ticket_engagement
+      - name: ticket_pipeline
+      - name: ticket_pipeline_stage
+      - name: ticket_property_history # has timestamp casting issues

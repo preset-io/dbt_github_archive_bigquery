@@ -1,0 +1,16 @@
+---
+version: 2
+
+sources:
+  - name: seeds
+    database: preset-cloud-analytics
+    description: >
+      This schema has seed files too large to be committed to the dataeng repo
+    tags:
+      - type:staging
+      - schema:seeds
+
+    tables:
+      - name: seed_wrk_segment_unified_page_views
+        description: >
+          This table has unrecoverable data from Segment.

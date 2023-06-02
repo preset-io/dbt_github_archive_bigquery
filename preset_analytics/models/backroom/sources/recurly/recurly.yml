@@ -1,0 +1,41 @@
+---
+version: 2
+
+sources:
+  - name: recurly
+    database: preset-cloud-analytics
+    tags:
+      - schema:recurly
+      - type:staging
+
+    loader: fivetran
+
+    freshness: # default freshness
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+    loaded_at_field: _fivetran_synced
+
+    tables:
+      - name: account_acquisition_history
+      - name: account_balance_history
+      - name: account_history
+      - name: account_note_history
+      - name: billing_info_history
+      - name: coupon_discount
+      - name: coupon_history
+      - name: coupon_plan_history
+      - name: coupon_redemption_history
+      - name: credit_payment_history
+      - name: fivetran_audit
+      - name: invoice_history
+      - name: invoice_subscription_history
+      - name: line_item_history
+      - name: plan_add_on_currency_history
+      - name: plan_add_on_history
+      - name: plan_currency_history
+      - name: plan_history
+      - name: subscription_add_on_history
+      - name: subscription_change_history
+      - name: subscription_history
+      - name: transaction
+      - name: transaction_subscription

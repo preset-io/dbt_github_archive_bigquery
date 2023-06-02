@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: hsft_feature_request
+    description: >
+      A frontroom table representing the "Feature Request" custom entity
+      that we manage in Hubspot. Those feature requests are typically
+      attached to deals and/or companies. Many-to-many relationships
+      exist on both sides.
+  - name: hsft_feature_request_by_deal_and_company
+    description: >
+      Joining hsft_feature_request to the related deals and companies
+      and bringing it all together in one big flat table

@@ -1,0 +1,109 @@
+---
+version: 2
+
+models:
+  - name: manager_workspace
+    description: >
+      Workspaces here are sourced from Manager.
+      This table has one row per existing workspace
+      with its key attributes.
+    columns:
+      - name: workspace_hash
+        tests:
+          - unique
+          - not_null
+  - name: manager_invite
+    description: >
+      Invites here are sourced from Manager.
+      This table has one row per existing invite that is sent. One
+      row here matches one row in the manager interface.
+
+      EXCEPT! We filter out invites that exist for the team creator.
+      Even though they do follow an invite-like workflow, they are not
+      technically invited by a fellow team member. This table aims
+      at doing accounting on those peer-sent invite, and remove all of the
+      Customer Support / Preset-generated invites.
+  - name: manager_team
+    description: >
+      Team here are sourced from Manager.
+      This table has one row per existing team. Data is enriched heavily
+      from Hubspot and the Superset event log.
+    columns:
+      - name: activation_score
+        description: >
+          Teams get 40 points to connect to a database, 20 once they
+          invite someone to their team, 20 for their first chart
+          against a non-example database, and 20 more to build their
+          first dashboard, for a total of 100 points
+      - name: l7
+        description: >
+          The number of days over the past 7 days where the team was
+          visited at least once, by at least one user
+      - name: l28
+        description: >
+          The number of days over the past 28 days where the team was
+          visited at least once, by at least one user
+      - name: ltd_visits
+        description: >
+          The number of days TOTAL, where at least one user visited once
+          since the team's inception
+      - name: dashboard_noex_count
+        description: >
+          Number of dashboards created in the team that are not using
+          the EXAMPLES database as a source.
+      - name: workspace_count
+        description: >
+          Number of workspaces associated with the team
+      - name: team_members
+        description: >
+          The number of members in the team, as defined in the members page
+          in manager.
+      - name: team_members_admin
+        description: >
+          The number of members in the team that are of type `Admin`,
+          as defined in the members page in manager.
+      - name: team_members_user
+        description: >
+          The number of members in the team that are of type `User`,
+          as defined in the members page in manager.
+
+  - name: manager_user
+    description: >
+      Users here are sourced from Manager.
+      This table has one row per existing user and is heavily enriched
+      from Hubspot contacts and superset event log.
+  - name: superset_chart
+    description: >
+      The charts listed here are extracted from our multitude of
+      Superset metadata databases and represents all existing saved charts
+      on Preset.
+  - name: superset_dashboard
+    description: >
+      The dashboards listed here are extracted from our multitude of
+      Superset metadata databases and represents all existing saved dashboards
+      on Preset.
+  - name: superset_event_log
+    description: >
+      Running log of superset events with additional enrichment data.
+
+  - name: egaf_growth_accounting
+    description: >
+      Part of EGAF(engagement & growth accounting framework).
+      Contains growth accounting-related information on a 7D and 28D
+      basis for many entities like `user`, `dashboard` and `chart`.
+
+      A common query would be to:
+        - `SUM(entity_count)`
+        - `GROUP BY status_28d`
+        - filter on `entity = 'user'`
+
+  - name: egaf_active_entity
+    description: >
+      Part of EGAF(engagement & growth accounting framework).
+      This table contains daily actives, weekly active and 28d actives
+      for the entities fed into EGAF.
+    columns:
+      - name: status_28d
+        description: >
+          Grouping of the users, whether they are 28D `churned`, `retained`,
+          `new`, `resurected`

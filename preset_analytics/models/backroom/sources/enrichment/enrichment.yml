@@ -1,0 +1,12 @@
+---
+version: 2
+
+sources:
+  - name: geolocation
+    database: preset-cloud-analytics
+    tags:
+      - type:staging
+      - schema:geolocation
+
+    tables:
+      - name: seed_ip_geo_map

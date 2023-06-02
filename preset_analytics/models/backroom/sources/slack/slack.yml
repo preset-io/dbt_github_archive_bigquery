@@ -1,0 +1,38 @@
+---
+version: 2
+
+sources:
+  - name: slack
+    database: preset-cloud-analytics
+    tags:
+      - schema:slack
+      - type:staging
+
+    freshness:
+      warn_after: {count: 1, period: day}
+      error_after: {count: 3, period: day}
+    loaded_at_field: loaded_at
+
+    tables:
+      - name: bookmark
+      - name: channel
+      - name: channel_member
+      - name: channel_shared_team
+      - name: dnd_info
+      - name: fivetran_audit
+      - name: message
+      - name: message_attachment
+      - name: message_block
+      - name: message_block_element
+      - name: message_file
+      - name: message_pinned_to
+      - name: message_reaction
+      - name: message_reaction_user
+      - name: pinned_message
+      - name: previous_channel_name
+      - name: profile_field
+      - name: profile_field_option
+      - name: scheduled_message
+      - name: usergroup
+      - name: usergroup_user
+      - name: users

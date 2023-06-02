@@ -1,0 +1,28 @@
+---
+version: 2
+
+models:
+  - name: database_connection_attempts
+    description: >
+      Trying to understand sessions where users tried to connect to
+      databases and looking for desired outcomes.
+  - name: hs_contact_events_agg_denorm
+    description: >
+      Denormalized view of Hubspot Contact events aggs.
+  - name: hs_contact_team_events_agg
+    description: >
+      Aggregation of Hubspot Contacts for the first, latest, and most
+      used team.
+  - name: hs_contact_workspace_events_agg
+    description: >
+      Aggregation of Hubspot Contacts for the first, latest, and most
+      used workspace.
+  - name: user_events_agg_denorm
+    description: >
+      Denormalized view of user events aggs.
+  - name: user_team_events_agg
+    description: >
+      Aggregation of user_id for the first, latest, and most used team.
+  - name: user_workspace_events_agg
+    description: >
+      Aggregation of user_id for the first, latest, and most used workspace.

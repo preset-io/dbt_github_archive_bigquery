@@ -1,0 +1,72 @@
+---
+version: 2
+
+sources:
+  - name: production_preset_metadata
+    database: preset-cloud-analytics
+    tags:
+      - schema:production_preset_metadata
+      - type:staging
+
+    freshness:
+      warn_after: {count: 1, period: day}
+      error_after: {count: 3, period: day}
+      filter: >
+        ds > DATE('2000-01-01')
+    loaded_at_field: CAST(ds AS TIMESTAMP)
+
+    tables:
+      - name: manager_invite
+      - name: manager_preset_user
+      - name: manager_team
+      - name: manager_user_details
+      - name: manager_user_onboarding
+      - name: manager_team_membership
+      - name: manager_workspace
+      - name: manager_invite_workspace
+      - name: manager_share
+      - name: manager_team_color_scheme
+      - name: manager_user_group
+      - name: manager_user_group_membership
+      - name: manager_workspace_membership
+      - name: manager_vendor_connection
+      - name: superset_dashboard
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_dashboard_chart
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_database_connection
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_dataset
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_report_schedule
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_saved_query
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_slice
+        description: >
+          Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+          when running time series on this table.
+      - name: superset_embedded_dashboard
+        description: >
+            Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+            when running time series on this table.
+      - name: superset_sql_metric
+        description: >
+            Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+            when running time series on this table.
+      - name: superset_favstar
+        description: >
+            Warning, partial scrapes `2021-09-08` and `2021-11-12`, be cautious
+            when running time series on this table.

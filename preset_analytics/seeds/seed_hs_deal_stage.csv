@@ -1,0 +1,8 @@
+deal_pipeline,deal_stage,deal_pipeline_name,deal_stage_name,deal_status,deal_stage_long
+9979808,17462897,Beta Customers,1.Qualifying,Active Trial,Qualifying / Gathering requirements
+9979808,17449999,Beta Customers,2.Discovery,Active Trial,Discovery / Trial in Progress
+9979808,17450000,Beta Customers,3.POC,Active Trial,Demonstrating Value / POC
+9979808,17450001,Beta Customers,4.Negotiating,Active Trial,Proposal / Negotiating
+9979808,9979813,Beta Customers,5.Contract,Active Trial,Contract Sent
+9979808,9979814,Beta Customers,6.Won,Active Trial,Closed / Won
+9979808,17486609,Beta Customers,7.Disqualified,No Active Trial,Disqualified

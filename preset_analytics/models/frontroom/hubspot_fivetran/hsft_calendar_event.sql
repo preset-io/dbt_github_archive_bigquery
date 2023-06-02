@@ -1,0 +1,36 @@
+{{
+  config(
+    alias='calendar_event',
+    materialized='view'
+  )
+}}
+
+SELECT
+  id,
+  _fivetran_synced,
+  avatar_url,
+  campaign_guid,
+  category,
+  category_id,
+  content_group_id,
+  content_id,
+  create_content,
+  created_by,
+  description,
+  event_date,
+  event_type,
+  group_id,
+  group_order,
+  is_recurring,
+  name,
+  owner_id,
+  portal_id,
+  preview_key,
+  social_display_name,
+  social_username,
+  state,
+  template_path,
+  url,
+  user_id,
+FROM
+  {{ source('fivetran_hubspot', 'calendar_event') }}

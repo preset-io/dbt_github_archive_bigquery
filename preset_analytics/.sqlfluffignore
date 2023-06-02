@@ -1,0 +1,10 @@
+target/
+dbt_modules/
+macros/
+
+# TODO: remove these once we can figure out how to support the macros
+models/core/active_user.sql
+models/core/l_distribution.sql
+models/core/superset_event_log.sql
+models/wrk/wrk_action_actor_accounting_raw.sql
+models/wrk/wrk_action_actor_accounting_summary.sql

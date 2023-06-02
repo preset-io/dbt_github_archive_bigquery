@@ -1,0 +1,29 @@
+---
+version: 2
+
+sources:
+  - name: shortcut
+    database: preset-cloud-analytics
+    tags:
+      - schema:shortcut
+      - type:staging
+
+    freshness:
+      warn_after: {count: 1, period: day}
+      error_after: {count: 3, period: day}
+    loaded_at_field: loaded_at
+
+    tables:
+      - name: categories
+      - name: epics
+      - name: files
+      - name: groups
+      - name: iterations
+      - name: labels
+      - name: members
+      - name: milestones
+      - name: projects
+      - name: repositories
+      - name: stories
+      - name: teams
+      - name: workflows

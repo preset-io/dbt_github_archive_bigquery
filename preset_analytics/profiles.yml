@@ -1,0 +1,29 @@
+default:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account-json
+      schema: core
+      keyfile_json: "{{ env_var('AIRFLOW_VAR_DBT_KEYFILE_JSON_DEV') | as_native }}" # yamllint disable-line
+      project: preset-cloud-dev-dbt
+      threads: 8
+      timeout_seconds: 300
+      location: us-west2
+      priority: interactive
+      gcs_bucket: preset-cloud-dev-dbt-python-bucket
+      dataproc_cluster_name: cluster-dbt-dev
+      dataproc_region: us-west2
+    prod:
+      type: bigquery
+      method: service-account-json
+      schema: core
+      keyfile_json: "{{ env_var('AIRFLOW_VAR_DBT_KEYFILE_JSON_PROD') | as_native }}" # yamllint disable-line
+      project: preset-cloud-dbt
+      threads: 8
+      timeout_seconds: 1200
+      location: us-west2
+      priority: interactive
+      gcs_bucket: preset-cloud-dbt-python-bucket
+      dataproc_cluster_name: cluster-dbt
+      dataproc_region: us-west2

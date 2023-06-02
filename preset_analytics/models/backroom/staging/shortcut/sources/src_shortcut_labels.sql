@@ -1,0 +1,15 @@
+SELECT
+  id,
+  global_id,
+  external_id,
+  entity_type,
+  name,
+  app_url,
+  description,
+  archived AS is_archieved,
+  color,
+  stats,
+  created_at,
+  updated_at,
+  loaded_at,
+FROM {{ source('shortcut', 'labels') }}

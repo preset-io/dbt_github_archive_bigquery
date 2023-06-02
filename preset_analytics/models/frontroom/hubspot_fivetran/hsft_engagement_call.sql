@@ -1,0 +1,29 @@
+{{
+  config(
+    alias='engagement_call',
+    materialized='view'
+  )
+}}
+
+SELECT
+  engagement_id,
+  _fivetran_synced,
+  body,
+  callee_object_id,
+  callee_object_type,
+  disposition,
+  duration_milliseconds,
+  external_account_id,
+  external_id,
+  from_number,
+  has_transcript,
+  recording_url,
+  source,
+  status,
+  title,
+  to_number,
+  transcription_id,
+  unknown_visitor_conversation,
+  video_recording_url,
+FROM
+  {{ source('fivetran_hubspot', 'engagement_call') }}

@@ -1,0 +1,8 @@
+raw_role_identifier,in_product_role_identifier
+Admin,Workspace Admin
+PresetAlpha,Primary Contributor
+PresetGamma,Limited Contributor
+PresetMachineRole,Machine
+PresetReportsOnly,Viewer
+PresetDashboardsOnly,Dashboard Viewer
+PresetNoAccess,No Access

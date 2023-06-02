@@ -1,0 +1,22 @@
+---
+version: 2
+
+sources:
+  - name: pendo
+    database: preset-cloud-analytics
+    tags:
+      - schema:pendo
+      - type:staging
+    tables:
+      - name: poll_event
+        description: >
+          Events happening on polls
+        freshness: # do not check freshness for this table
+      - name: poll_response
+        description: >
+          Poll responses
+        freshness: # do not check freshness for this table
+      - name: poll
+        description: >
+          One entry per poll
+        freshness: # do not check freshness for this table

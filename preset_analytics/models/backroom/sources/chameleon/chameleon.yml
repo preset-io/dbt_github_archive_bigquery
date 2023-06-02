@@ -1,0 +1,17 @@
+---
+version: 2
+
+sources:
+  - name: chameleon
+    database: preset-cloud-analytics
+    tags:
+      - schema:chameleon
+      - type:staging
+
+    freshness:
+      warn_after: {count: 1, period: day}
+      error_after: {count: 3, period: day}
+    loaded_at_field: loaded_at
+
+    tables:
+      - name: profiles

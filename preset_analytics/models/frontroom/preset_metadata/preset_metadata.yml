@@ -1,0 +1,47 @@
+---
+version: 2
+
+models:
+  - name: src_superset_dashboard_dedup
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - workspace_id
+            - id
+  - name: src_superset_database_connection_dedup
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - team_id
+            - workspace_id
+            - id
+  - name: src_superset_dataset_dedup
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - workspace_id
+            - id
+  - name: src_superset_report_schedule_dedup
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - workspace_id
+            - id
+  - name: src_superset_saved_query_dedup
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - workspace_id
+            - id
+  - name: src_superset_slice_dedup
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - workspace_id
+            - id

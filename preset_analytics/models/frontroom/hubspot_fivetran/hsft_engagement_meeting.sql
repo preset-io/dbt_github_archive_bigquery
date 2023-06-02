@@ -1,0 +1,29 @@
+{{
+  config(
+    alias='engagement_meeting',
+    materialized='view'
+  )
+}}
+
+SELECT
+  engagement_id,
+  _fivetran_synced,
+  attendee_owner_ids,
+  body,
+  calendar_event_hash,
+  created_from_link_id,
+  end_time,
+  external_url,
+  i_cal_uid,
+  internal_meeting_notes,
+  location,
+  meeting_change_id,
+  meeting_outcome,
+  pre_meeting_prospect_reminders,
+  source,
+  source_id,
+  start_time,
+  title,
+  web_conference_meeting_id,
+FROM
+  {{ source('fivetran_hubspot', 'engagement_meeting') }}

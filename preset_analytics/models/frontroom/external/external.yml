@@ -1,0 +1,47 @@
+---
+version: 2
+
+models:
+  - name: external_admin_dashboard
+    description: >
+      This table contains usage information for Preset
+      aggregated by team_id and date. It is used in the embedded
+      Admin Usage Dashboard across all tabs.
+    tests:
+      - unique:
+          column_name: "(team_id|| '-' || workspace_hash || '-' || dt)"
+
+    columns:
+      - name: team_id
+        tests:
+          - not_null
+      - name: dt
+        tests:
+          - not_null
+
+  - name: external_admin_dashboard_chart
+    description: >
+      This table contains CHART usage information for Preset
+      with no aggregation.
+    columns:
+      - name: team_id
+        tests:
+          - not_null
+
+  - name: external_admin_dashboard_dashboard
+    description: >
+      This table contains DASHBOARD usage information for Preset
+      with no aggregation.
+    columns:
+      - name: team_id
+        tests:
+          - not_null
+
+  - name: external_admin_dashboard_user
+    description: >
+      This table contains USER usage information for Preset
+      with no aggregation.
+    columns:
+      - name: team_id
+        tests:
+          - not_null

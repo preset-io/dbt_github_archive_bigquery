@@ -1,0 +1,81 @@
+# this schema contains the history of core models calculated daily
+# for details on models, see core dir
+---
+version: 2
+
+models:
+  - name: manager_invite_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - invite_id
+  - name: manager_team_billing_status_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - id
+            - effective_from
+            - effective_to
+  - name: manager_team_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - team_id
+      - not_null:
+          column_name: activation_score
+      - not_null:
+          column_name: is_activated
+          config:
+            # there was a bad scrape load of manager_preset_user due
+            # to a type mismatch on this date
+            where: "ds != DATE('2022-08-11')"
+  - name: manager_user_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - user_id
+  - name: manager_workspace_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ds
+            - workspace_id
+  - name: superset_chart_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dt
+            - chart_key
+  - name: superset_dashboard_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dt
+            - dashboard_key
+  - name: superset_database_connection_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dt
+            - database_connection_key
+  - name: superset_dataset_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dt
+            - dataset_key
+  - name: superset_report_schedule_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dt
+            - report_schedule_key
+  - name: superset_saved_query_history
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - dt
+            - saved_query_key

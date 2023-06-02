@@ -1,0 +1,14 @@
+---
+version: 2
+
+models:
+  - name: wrk_egaf_summary
+    description: >
+      Part of EGAF(engagement & growth accounting framework).
+      Aggregates and summarizes EGAF information on user, dashboard,
+      chart, etc. at the `team_id` level.
+    columns:
+      - name: entity_count
+        tests:
+          - ptc_null:
+              allowable_ptc_null: 0
