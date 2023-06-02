@@ -1,5 +1,7 @@
 # dbt reference implementation for Github Archive
 
+<img src="https://github.com/preset-io/dbt_github_archive_bigquery/assets/487433/91891250-821c-40b7-b9e7-8215382aeefe"/>
+
 This is a quick and dirty reference implementation to make sense of the
 GitHub public information made available by the
 [GH Archive](https://www.gharchive.org/) through BigQuery public datasets.
