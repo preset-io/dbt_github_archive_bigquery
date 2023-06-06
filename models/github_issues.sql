@@ -11,7 +11,8 @@ FROM (
     JSON_EXTRACT_SCALAR(payload, '$.issue.state') AS issue_state,
     JSON_EXTRACT_SCALAR(payload, '$.issue.title') AS issue_title,
     JSON_EXTRACT_ARRAY(payload, '$.issue.labels') AS issue_labels,
-    CAST(JSON_EXTRACT_SCALAR(payload, '$.issue.reactions.total_count') AS INT) AS issue_reactions,
+    SAFE_CAST(JSON_EXTRACT_SCALAR(payload, '$.issue.comments') AS INT) AS issue_comments,
+    SAFE_CAST(JSON_EXTRACT_SCALAR(payload, '$.issue.reactions.total_count') AS INT) AS issue_reactions,
 
     ROW_NUMBER() OVER(PARTITION BY issue_id ORDER BY created_at DESC) AS row_num,
     FIRST_VALUE(created_at) OVER(PARTITION BY issue_id ORDER BY created_at) AS created_at,
