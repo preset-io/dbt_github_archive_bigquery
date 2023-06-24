@@ -3,7 +3,7 @@
     incremental_strategy = 'insert_overwrite',
     partition_by = {'field': 'dt', 'data_type': 'date'}
 ) }}
-{% set NUM_DAYS_BACKFILL = 7 %}
+{% set NUM_DAYS_BACKFILL = 30 %}
 {% set yesterday = (run_started_at - modules.datetime.timedelta(1)) %}
 {% set current_month_YYYYMM = yesterday.strftime("%Y%m") | int %}
 {% set yesterday_YYYYMMDD = yesterday.strftime("%Y%m%d") | int %}

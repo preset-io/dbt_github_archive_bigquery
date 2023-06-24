@@ -20,5 +20,6 @@ FROM (
     FIRST_VALUE(created_at) OVER(PARTITION BY issue_id ORDER BY created_at DESC) AS last_event_at,
   FROM {{ ref("__raw_github_events")}}
   WHERE issue_id IS NOT NULL AND `type` IN  ('IssuesEvent', 'IssueCommentEvent')
+   AND JSON_EXTRACT_SCALAR(payload, '$.issue.html_url') NOT LIKE '%/pull/%'
 ) AS qry
 WHERE row_num = 1
