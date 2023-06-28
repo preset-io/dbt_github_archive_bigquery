@@ -5,7 +5,7 @@ FROM (
   SELECT
     review_id,
     JSON_EXTRACT_SCALAR(payload, '$.review.state') AS review_state,
-    JSON_EXTRACT_SCALAR(payload, '$.review.user.login') AS reviewer,
+    JSON_EXTRACT_SCALAR(payload, '$.review.user.login') AS reviewer_username,
 
     B.* EXCEPT(pr_id),
     ROW_NUMBER() OVER(PARTITION BY review_id ORDER BY created_at DESC) AS row_num,

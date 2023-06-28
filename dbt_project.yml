@@ -17,4 +17,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 models:
-  github_archive:
+  +persist_docs:
+    relation: true
+    columns: true

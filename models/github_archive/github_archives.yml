@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: __raw_github_events
+    description: DEPRECATED, DO NOT USE!
+
+  - name: github_pull_requests
+    description: contains one row for each pull request and it's most recent state and attributes
+    columns:
+      - name: pr_state
+        description: the status of the pull request, possible values include 'open' and 'closed', note that closed PRs may be merged or abandoned, use the `is_merged` field to get that detail

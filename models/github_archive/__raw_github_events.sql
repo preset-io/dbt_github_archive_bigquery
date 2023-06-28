@@ -3,7 +3,7 @@
     incremental_strategy = 'insert_overwrite',
     partition_by = {'field': 'dt', 'data_type': 'date'}
 ) }}
-{% set NUM_DAYS_BACKFILL = 7 %}
+{% set NUM_DAYS_BACKFILL = 30 %}
 {% set yesterday = (run_started_at - modules.datetime.timedelta(1)) %}
 {% set current_month_YYYYMM = yesterday.strftime("%Y%m") | int %}
 {% set yesterday_YYYYMMDD = yesterday.strftime("%Y%m%d") | int %}
@@ -28,9 +28,7 @@ SELECT
   CAST(JSON_EXTRACT_SCALAR(payload, '$.issue.id') AS INT) AS issue_id,
 FROM (
   {% if not is_incremental() %}
-    {{ year_range(2015, 2023) }}
-    UNION ALL
-    {{ month_range(202301, current_month_YYYYMM) }}
+    {{ month_range(201401, current_month_YYYYMM) }}
     UNION ALL
     {{ day_range(yesterday.replace(day=1), yesterday) }}
   {% else %}
