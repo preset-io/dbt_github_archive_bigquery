@@ -1,7 +1,7 @@
 version: 2
 
 models:
-	+persist_docs:
+  +persist_docs:
     relation: true
     columns: true
   - name: __raw_github_events
