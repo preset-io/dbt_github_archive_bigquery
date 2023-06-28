@@ -3,7 +3,7 @@ SELECT
   A.dt,
   A.repo.name AS repo,
   A.* EXCEPT(dt, payload, repo, actor, org),
-  actor.login AS user,
+  actor.login AS username,
   org.id AS org,
   B.issue_state AS latest_issue_state,
   C.pr_state AS latest_pr_state,

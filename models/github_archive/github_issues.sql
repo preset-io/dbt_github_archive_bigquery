@@ -5,6 +5,7 @@ FROM (
     issue_id,
     repo.name AS repo,
     community,
+    actor.login AS username,
 
     JSON_EXTRACT_SCALAR(payload, '$.issue.number') AS issue_number,
     JSON_EXTRACT_SCALAR(payload, '$.issue.html_url') AS issue_url,

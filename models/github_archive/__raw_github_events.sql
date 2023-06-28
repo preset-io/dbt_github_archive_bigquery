@@ -28,7 +28,7 @@ SELECT
   CAST(JSON_EXTRACT_SCALAR(payload, '$.issue.id') AS INT) AS issue_id,
 FROM (
   {% if not is_incremental() %}
-    {{ month_range(201501, current_month_YYYYMM) }}
+    {{ month_range(201401, current_month_YYYYMM) }}
     UNION ALL
     {{ day_range(yesterday.replace(day=1), yesterday) }}
   {% else %}

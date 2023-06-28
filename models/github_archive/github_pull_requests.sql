@@ -23,7 +23,7 @@ FROM (
     SAFE_CAST(JSON_EXTRACT_SCALAR(payload, '$.issue.review_comments') AS INT) AS pr_review_comments,
     ROW_NUMBER() OVER(PARTITION BY pr_id ORDER BY created_at DESC) AS row_num,
     FIRST_VALUE(created_at) OVER(PARTITION BY pr_id ORDER BY created_at DESC) AS modified_at,
-    FIRST_VALUE(actor.login) OVER(PARTITION BY pr_id ORDER BY created_at) AS pr_author,
+    FIRST_VALUE(actor.login) OVER(PARTITION BY pr_id ORDER BY created_at) AS author_username,
   FROM {{ ref("__raw_github_events")}}
   WHERE pr_id IS NOT NULL AND `type` in  ('PullRequestEvent', 'PullRequestReviewEvent', 'PullRequestReviewCommentEvent')
 ) AS qry
