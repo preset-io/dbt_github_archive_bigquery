@@ -1,9 +1,6 @@
 version: 2
 
 models:
-  +persist_docs:
-    relation: true
-    columns: true
   - name: __raw_github_events
     description: DEPRECATED, DO NOT USE!
 
